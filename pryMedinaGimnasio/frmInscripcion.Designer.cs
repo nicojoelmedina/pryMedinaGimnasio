@@ -70,6 +70,8 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(100, 23);
             txtNombre.TabIndex = 0;
+            txtNombre.TextChanged += txtNombre_TextChanged;
+            txtNombre.KeyPress += txtNombre_KeyPress;
             // 
             // txtEdad
             // 
@@ -78,6 +80,8 @@
             txtEdad.Name = "txtEdad";
             txtEdad.Size = new Size(100, 23);
             txtEdad.TabIndex = 1;
+            txtEdad.TextChanged += txtNombre_TextChanged;
+            txtEdad.KeyPress += txtEdad_KeyPress;
             // 
             // cboPlan
             // 
@@ -138,6 +142,7 @@
             rbtTarjeta.TabStop = true;
             rbtTarjeta.Text = "Tarjeta";
             rbtTarjeta.UseVisualStyleBackColor = true;
+            rbtTarjeta.CheckedChanged += rbtTarjeta_CheckedChanged;
             // 
             // cboCuotas
             // 
@@ -157,6 +162,7 @@
             btnCalcular.TabIndex = 5;
             btnCalcular.Text = "Calcular";
             btnCalcular.UseVisualStyleBackColor = true;
+            btnCalcular.Click += btnCalcular_Click;
             // 
             // btnLimpiar
             // 
