@@ -11,6 +11,9 @@ namespace pryMedinaGimnasio
 {
     public partial class frmInscripcion : Form
     {
+        // Constantes utilizadas para definir los precios, descuentos, recargos
+        // y valores fijos que se usarán durante la inscripción del socio.
+
         private const decimal PRECIO_MUSCULACION = 15000m;
         private const decimal PRECIO_FUNCIONAL = 18000m;
         private const decimal PRECIO_NATACION = 22000m;
@@ -27,10 +30,30 @@ namespace pryMedinaGimnasio
 
         private const decimal RECARGO_3_CUOTAS = 0.10m;
         private const decimal RECARGO_6_CUOTAS = 0.20m;
+
+        // La idea del struct es agrupar en una sola estructura todos los datos que pertenecen al mismo socio.
+        public struct SOCIO
+        {
+            public string nombre;
+            public int edad;
+            public string categoria;
+            public string plan;
+            public string horario;
+            public int meses;
+            public string formaPago;
+            public decimal total;
+            public decimal valorCuota;
+        }
+
         public frmInscripcion()
         {
             InitializeComponent();
         }
+
+        // Este método deja el formulario en su estado inicial.
+        // Limpia los campos, restablece las opciones seleccionadas,
+        // deshabilita controles que no deben usarse al comienzo
+        // y coloca el foco en el nombre.
 
         private void EstadoInicial()
         {
@@ -55,7 +78,6 @@ namespace pryMedinaGimnasio
             txtNombre.Focus();
         }
 
-
         private void frmInscripcion_Load(object sender, EventArgs e)
         {
             EstadoInicial();
@@ -71,6 +93,7 @@ namespace pryMedinaGimnasio
             string nombre = "";
             string plan = "";
             string horario = "";
+            string formaPago = "";
 
             int edad = 0;
             int meses = 0;
@@ -191,6 +214,32 @@ namespace pryMedinaGimnasio
             }
 
             total = subtotal + (subtotal * porcentajeAjuste);
+
+            string categoria = "";
+            total = subtotal + (subtotal * porcentajeAjuste);
+            categoria = edad < 18 ? "Menor" : "Mayor";
+
+            formaPago = rbtEfectivo.Checked
+                ? "Efectivo"
+                : "Tarjeta en " + cuotas + " cuotas";
+
+            valorCuota = rbtEfectivo.Checked
+                ? total
+                : total / cuotas;
+
+            //todas las variables sueltas que calculamos antes y las estamos guardando juntas dentro de socio.
+
+            SOCIO socio;
+            socio.nombre = nombre;
+            socio.edad = edad;
+            socio.categoria = categoria;
+            socio.plan = plan;
+            socio.horario = horario;
+            socio.meses = meses;
+            socio.formaPago = formaPago;
+            socio.total = total;
+            socio.valorCuota = valorCuota;
+
         }
 
         private void txtEdad_KeyPress(object sender, KeyPressEventArgs e)
@@ -236,8 +285,5 @@ namespace pryMedinaGimnasio
         }
 
         
-
-
-
     }
 }
